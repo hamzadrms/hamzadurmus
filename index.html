@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hamza Durmuş</title>
     <style>
-        /* 1. FONT TANIMLAMALARI (Mevcut) */
+        /* 1. FONT TANIMLAMALARI (Mevcut ve Kritik) */
         @font-face {
             font-family: 'SF Pro Display';
             src: url('SFProDisplay-Bold.ttf') format('truetype');
@@ -25,7 +25,7 @@
             --text-color: #ffffff;
             --accent-color: #0071e3;
             --secondary-text: #86868b;
-            --neon-color: #bf00ff; /* Mor İpin Rengi */
+            --neon-color: #bf00ff; /* Mor Neon İpin Rengi */
         }
 
         * {
@@ -43,10 +43,10 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            overflow: hidden; /* Dönen parçaların taşmasını engeller */
+            overflow: hidden; /* Taşmaları gizler */
         }
 
-        /* 3. DÖNEN NET MOR İP (BORDER ANIMATION) */
+        /* 3. NEON MOR İP ANİMASYONU (NET VE PARLAK) */
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -57,28 +57,30 @@
             width: 90%;
             max-width: 480px;
             padding: 2.5px; /* İpin kalınlığı */
-            border-radius: 42px; /* Dış kutu kavisi */
+            border-radius: 42px;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* İpin sadece border'da görünmesini sağlar */
+            overflow: hidden; /* İpin sadece border'da kalmasını sağlar */
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             background: rgba(0,0,0,0.05); /* Kutucuğun dış hattı */
+            /* Kritik Değişiklik: İpin kendisinin yaydığı parlaklık */
+            box-shadow: 0 0 25px rgba(191, 0, 255, 0.3);
         }
 
-        /* Dönen Mor İp (Keskin Kenarlı - Yayılmayan) */
+        /* Dönen Mor İp (Süper Keskin - Hard Stop) */
         .glow-wrapper::before {
             content: "";
             position: absolute;
             width: 150%;
             height: 150%;
-            /* Kritik Değişiklik: Sert geçişlerle ip etkisi */
+            /* Sert geçişlerle "ip" etkisi */
             background: conic-gradient(
                 from 0deg,
                 transparent 0%,
                 transparent 45%, /* Morun başlangıcı */
                 var(--neon-color) 45%,
-                var(--neon-color) 55%, /* Morun sonu (net ip) */
+                var(--neon-color) 55%, /* Morun sonu (keskin ip) */
                 transparent 55%,
                 transparent 100%
             );
@@ -87,18 +89,17 @@
 
         .glow-wrapper:hover {
             transform: scale(1.04);
+            box-shadow: 0 0 40px rgba(191, 0, 255, 0.5); /* Hoverda parlaklık artar */
         }
 
-        /* Ana İçerik Kutusu */
+        /* Ana İçerik Kutusu (Üstte Kalır) */
         .container {
             width: 100%;
             background: var(--card-bg);
             padding: 40px;
-            border-radius: 40px; /* İç kutu kavisi */
+            border-radius: 40px;
             position: relative;
             z-index: 2; /* İpin üstünde kalması için */
-            /* İpin kendisinin yaydığı parlaklık (asıl ışık) */
-            box-shadow: 0 0 25px rgba(191, 0, 255, 0.3);
         }
 
         /* 4. İÇERİK STİLLERİ (Mevcut ve Düzenli) */
