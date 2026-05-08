@@ -5,42 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hamza Durmuş</title>
     <style>
-        /* 1. Fontları Sisteme Tanıtıyoruz */
-@font-face {
-    font-family: 'SF Pro Display';
-    src: url('SFProDisplay-Bold.ttf') format('truetype');
-    font-weight: 700;
-}
+        /* 1. FONT TANIMLAMALARI */
+        @font-face {
+            font-family: 'SF Pro Display';
+            src: url('SFProDisplay-Bold.ttf') format('truetype');
+            font-weight: 700;
+        }
 
-@font-face {
-    font-family: 'SF Pro Text';
-    src: url('SFProText-Regular.ttf') format('truetype');
-    font-weight: 400;
-}
+        @font-face {
+            font-family: 'SF Pro Text';
+            src: url('SFProText-Regular.ttf') format('truetype');
+            font-weight: 400;
+        }
 
-/* 2. Global Yazı Motoru Ayarları (Anti-Aliasing) */
-* {
-    -webkit-font-smoothing: antialiased; /* macOS stili pürüzsüzlük */
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility; /* Okunabilirliği optimize et */
-}
-
-body {
-    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-h1 {
-    font-family: 'SF Pro Display', sans-serif;
-    font-weight: 700;
-    letter-spacing: -0.04em; /* Apple'ın Display fontu için özel daraltması */
-}
+        /* 2. DEĞİŞKENLER VE ANA AYARLAR */
         :root {
             --bg-color: #000000;
             --card-bg: #1c1c1e;
@@ -49,8 +27,33 @@ h1 {
             --secondary-text: #8e8e93;
         }
 
+        * {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            box-sizing: border-box;
+        }
+
+        /* 3. ANİMASYONLAR */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes subtleRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* 4. SAYFA YAPISI */
         body {
-            font-family: "-apple-system", "BlinkMacSystemFont", "SF Pro Text", "SF Pro Display", sans-serif;
+            font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
@@ -58,7 +61,20 @@ h1 {
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
+            overflow: hidden; /* Arka plan taşmalarını gizler */
+        }
+
+        /* Hareketli Arka Plan Işıltısı */
+        body::before {
+            content: "";
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(10, 132, 255, 0.07) 0%, transparent 25%);
+            animation: subtleRotate 25s linear infinite;
+            z-index: -1;
         }
 
         .container {
@@ -68,10 +84,19 @@ h1 {
             padding: 40px;
             border-radius: 32px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            animation: fadeInUp 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
+            z-index: 1;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(10, 132, 255, 0.1);
         }
 
         h1 {
-            font-family: "-apple-system", "SF Pro Display", sans-serif;
+            font-family: 'SF Pro Display', sans-serif;
             font-weight: 700;
             font-size: 34px;
             letter-spacing: -0.04em;
@@ -117,21 +142,40 @@ h1 {
             line-height: 1.4;
         }
 
+        /* 5. BUTON AYARLARI */
         .btn {
-            display: block;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             background: var(--text-color);
             color: var(--bg-color);
             text-decoration: none;
-            padding: 14px;
-            border-radius: 14px;
-            font-weight: 600;
+            padding: 16px;
+            border-radius: 18px;
             margin-top: 30px;
-            text-align: center;
-            transition: transform 0.2s;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+            opacity: 0.95;
         }
 
         .btn:active {
             transform: scale(0.98);
+        }
+
+        .btn-main {
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        .btn-sub {
+            font-size: 11px;
+            font-weight: 400;
+            opacity: 0.7;
+            margin-top: 4px;
         }
     </style>
 </head>
@@ -154,6 +198,7 @@ h1 {
         <div class="cv-item">
             <div class="cv-title">Kendi hakkımda</div>
             <div class="cv-desc">13 yaşındayım ya CV falan daha yok bende</div>
+        </div>
     </div>
 
     <div class="section">
@@ -162,11 +207,9 @@ h1 {
     </div>
 
     <a href="mailto:hamzadurmuss1@outlook.com" class="btn">
-    <span style="display: block; font-size: 16px; font-weight: 600;">İletişime Geç</span>
-    <span style="display: block; font-size: 11px; font-weight: 400; opacity: 0.7; margin-top: 4px;">
-        güzel kızlar yazsın 😉
-    </span>
-</a>
+        <span class="btn-main">İletişime Geç</span>
+        <span class="btn-sub">güzel kızlar yazsın 😉</span>
+    </a>
 </div>
 
 </body>
