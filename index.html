@@ -5,6 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hamza Durmuş</title>
     <style>
+        /* 1. Fontları Sisteme Tanıtıyoruz */
+@font-face {
+    font-family: 'SF Pro Display';
+    src: url('SFProDisplay-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: 'SF Pro Text';
+    src: url('SFProText-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+/* 2. Global Yazı Motoru Ayarları (Anti-Aliasing) */
+* {
+    -webkit-font-smoothing: antialiased; /* macOS stili pürüzsüzlük */
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility; /* Okunabilirliği optimize et */
+}
+
+body {
+    font-family: 'SF Pro Text', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h1 {
+    font-family: 'SF Pro Display', sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.04em; /* Apple'ın Display fontu için özel daraltması */
+}
         :root {
             --bg-color: #000000;
             --card-bg: #1c1c1e;
