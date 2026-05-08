@@ -18,13 +18,14 @@
             font-weight: 400;
         }
 
-        /* 2. DEĞİŞKENLER */
+        /* 2. PREMIUM RENK PALETİ */
         :root {
-            --bg-color: #0b0b0b;
-            --card-bg: #161617;
+            --bg-color: #f5f5f7; /* Apple Premium White/Grey */
+            --card-bg: #1d1d1f;  /* Koyu Gri/Siyah Kutucuk */
             --text-color: #ffffff;
-            --accent-color: #0a84ff;
-            --secondary-text: #a1a1a6;
+            --accent-color: #0071e3;
+            --secondary-text: #86868b;
+            --neon-color: #bf00ff; /* Mor ipin rengi */
         }
 
         * {
@@ -44,7 +45,7 @@
             overflow: hidden;
         }
 
-        /* 3. DÖNEN IŞIK EFEKTİ (BORDER ANIMATION) */
+        /* 3. DÖNEN MOR İP VE DIŞA YAYILAN IŞIK */
         @keyframes rotate {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
@@ -54,16 +55,16 @@
             position: relative;
             width: 90%;
             max-width: 480px;
-            padding: 3px; /* Işığın kalınlığı */
-            border-radius: 40px;
-            overflow: hidden;
+            padding: 2px; /* İpin kalınlığı */
+            border-radius: 42px;
             display: flex;
             justify-content: center;
             align-items: center;
             transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(0,0,0,0.05); /* Kutucuk dış hattı */
         }
 
-        /* Dönen Işık Katmanı */
+        /* Dönen Mor İp (Keskin Kenarlı) */
         .glow-wrapper::before {
             content: "";
             position: absolute;
@@ -71,35 +72,49 @@
             height: 150%;
             background: conic-gradient(
                 from 0deg,
-                transparent,
-                #0a84ff, /* Mavi */
-                #bf00ff, /* Mor */
-                transparent,
-                transparent
+                transparent 0%,
+                transparent 40%,
+                var(--neon-color) 45%, /* İpin başlangıcı */
+                var(--neon-color) 50%, /* İpin sonu (keskin) */
+                transparent 55%,
+                transparent 100%
             );
-            animation: rotate 4s linear infinite;
+            animation: rotate 3s linear infinite;
+        }
+
+        /* Dışa Yayılacak Glow Etkisi */
+        .glow-wrapper::after {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 42px;
+            box-shadow: 0 0 30px rgba(191, 0, 255, 0.4); /* Dışa yayılan mor ışık */
+            z-index: -1;
         }
 
         .glow-wrapper:hover {
-            transform: scale(1.05);
+            transform: scale(1.04);
         }
 
-        /* Ana İçerik Kutusu */
         .container {
             width: 100%;
             background: var(--card-bg);
             padding: 40px;
-            border-radius: 38px;
+            border-radius: 40px;
             position: relative;
             z-index: 2;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5); /* İç derinlik */
         }
 
+        /* 4. İÇERİK STİLLERİ */
         h1 {
             font-family: 'SF Pro Display', sans-serif;
             font-weight: 700;
             font-size: 34px;
             letter-spacing: -0.04em;
             margin: 0 0 5px 0;
+            color: #ffffff;
         }
 
         .role {
@@ -111,19 +126,20 @@
         .section {
             text-align: left;
             margin-bottom: 25px;
-            border-top: 0.5px solid rgba(255, 255, 255, 0.1);
+            border-top: 0.5px solid #323235;
             padding-top: 20px;
         }
 
         h2 {
             font-size: 13px;
-            color: var(--accent-color);
+            color: #0071e3;
             text-transform: uppercase;
             letter-spacing: 1.2px;
             margin-bottom: 12px;
+            font-weight: 600;
         }
 
-        .cv-title { font-size: 16px; font-weight: 600; margin-bottom: 2px; }
+        .cv-title { font-size: 16px; font-weight: 600; }
         .cv-desc { font-size: 14px; color: var(--secondary-text); line-height: 1.4; }
 
         .btn {
@@ -134,19 +150,19 @@
             background: #ffffff;
             color: #000000;
             text-decoration: none;
-            padding: 18px;
-            border-radius: 20px;
+            padding: 16px;
+            border-radius: 16px;
             margin-top: 30px;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            transition: all 0.3s;
         }
 
         .btn:hover {
-            transform: translateY(-3px);
-            background: #f0f0f0;
+            background: #f5f5f7;
+            transform: translateY(-2px);
         }
 
-        .btn-main { font-size: 16px; font-weight: 700; }
-        .btn-sub { font-size: 11px; opacity: 0.7; margin-top: 4px; }
+        .btn-sub { font-size: 11px; opacity: 0.6; font-weight: 400; margin-top: 2px; }
 
     </style>
 </head>
@@ -175,11 +191,11 @@
 
         <div class="section">
             <h2>İlgi Alanları</h2>
-            <div class="cv-desc">ALLAH ATATÜRK FENERBAHÇE</div>
+            <div class="cv-desc" style="color: var(--secondary-text);">ALLAH ATATÜRK FENERBAHÇE</div>
         </div>
 
         <a href="mailto:hamzadurmuss1@outlook.com" class="btn">
-            <span class="btn-main">İletişime Geç</span>
+            <span>İletişime Geç</span>
             <span class="btn-sub">güzel kızlar yazsın 😉</span>
         </a>
     </div>
